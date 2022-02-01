@@ -1,3 +1,4 @@
+//math operation functions
 const add = function(a, b) {
     return a + b;
 };
@@ -14,11 +15,7 @@ const divide = function(a, b) {
     return a / b;
 };
 
-console.log(add(2, 5));
-console.log(subtract(7, 4));
-console.log(multiply(3, 4));
-console.log(divide(15, 3));
-
+//equals button function
 const operate = function(operator, a, b) {
     if (operator == '+') {
         return add(a, b);
@@ -32,3 +29,16 @@ const operate = function(operator, a, b) {
         return 'Please try again.'
     }
 };
+
+//display digits on button click
+const output = document.getElementById('output');
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach(button => {
+    button.addEventListener('click', display);
+});
+
+function display() {
+    let buttonText = this.innerText
+    console.log(buttonText);
+}
