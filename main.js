@@ -68,10 +68,29 @@ function display() {
         previous.innerText = '';
         document.getElementById('point').disabled = false;
     } else if (buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
-        operator = buttonText;
-        operand1 = output.textContent;
-        output.textContent += buttonText;
-        document.getElementById('point').disabled = false;
+        const operands = output.textContent.split(/[^0-9.]/);
+        operand2 = operands[1];
+        if (operands[1] !== undefined) {
+            previous.textContent = output.textContent;
+            a = parseFloat(operand1);
+            b = parseFloat(operand2);
+            output.innerText = operate(operator, a, b);
+            console.log(operate(operator, a, b));
+            operator = buttonText;
+            operand1 = output.textContent;
+            output.textContent += buttonText;
+            document.getElementById('point').disabled = false;
+            console.log(operator);
+            console.log(operand1);
+            console.log(operand2);
+            console.log(a);
+            console.log(b);       
+        } else {
+            operator = buttonText;
+            operand1 = output.textContent;
+            output.textContent += buttonText;
+            document.getElementById('point').disabled = false;
+        }
     } else if (buttonText === '.') {
         const operands = output.textContent.split(/[^0-9.]/);
         if (Number.isInteger(parseFloat(operands[0])) === false) {
@@ -99,11 +118,11 @@ function display() {
         document.getElementById('point').disabled = false;
     }
 
-    console.log(operator);
-    console.log(operand1);
-    console.log(operand2);
-    console.log(a);
-    console.log(b);
+    // console.log(operator);
+    // console.log(operand1);
+    // console.log(operand2);
+    // console.log(a);
+    // console.log(b);
 }
 
 //
