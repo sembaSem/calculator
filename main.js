@@ -36,7 +36,7 @@ const digits = document.querySelectorAll('.digit');
 const operators = document.querySelectorAll('.operator');
 
 digits.forEach(digit => {
-    digit.addEventListener('click', displayDigit);
+   digit.addEventListener('click', displayDigit);
 });
 
 function displayDigit() {
@@ -61,6 +61,7 @@ function displayOperator() {
     if (buttonText === 'AC') {
         output.innerText = '';
     } else if (buttonText === '=') {
+        console.log(output.textContent);
         const operands = output.textContent.split(/\D/);
         operand2 = operands[1];
         a = parseInt(operand1);
@@ -72,6 +73,7 @@ function displayOperator() {
         operator = buttonText;
         output.textContent += buttonText;
     }
+
     console.log(operator);
     console.log(operand1);
     console.log(operand2);
