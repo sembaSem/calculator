@@ -1,21 +1,21 @@
 //math operation functions
 const add = function(a, b) {
-    return a + b;
+    return (a + b).toFixed(6).replace(/\.?0+$/, '');
 };
 
 const subtract = function(a, b) {
-    return a - b;
+    return (a - b).toFixed(6).replace(/\.?0+$/, '');
 };
 
 const multiply = function(a, b) {
-    return a * b;
+    return (a * b).toFixed(6).replace(/\.?0+$/, '');
 };
 
 const divide = function(a, b) {
     if (b === 0) {
         return 'Can not divide by 0!'
     } else {
-        return a / b;
+        return (a / b).toFixed(6).replace(/\.?0+$/, '');
     }
 };
 
@@ -37,18 +37,7 @@ const operate = function(operator, a, b) {
 //display digits on button click
 const output = document.getElementById('output');
 const previous = document.getElementById('previous');
-//const digits = document.querySelectorAll('.digit');
 const buttons = document.querySelectorAll('button');
-
-// digits.forEach(digit => {
-//    digit.addEventListener('click', displayDigit);
-// });
-
-// function displayDigit() {
-//     let buttonText = this.innerText;
-//     output.textContent += buttonText;
-//     console.log(buttonText);
-// }
 
 buttons.forEach(button => {
     button.addEventListener('click', display);
@@ -67,6 +56,16 @@ function display() {
         output.innerText = '';
         previous.innerText = '';
         document.getElementById('point').disabled = false;
+    } else if (buttonText === '=') {
+        console.log(output.textContent);
+        previous.textContent = output.textContent;
+        const operands = output.textContent.split(/[^0-9.]/);
+        operand2 = operands[1];
+        a = parseFloat(operand1);
+        b = parseFloat(operand2);
+        output.innerText = operate(operator, a, b);
+        console.log(operate(operator, a, b));
+        document.getElementById('point').disabled = false;
     } else if (buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
         const operands = output.textContent.split(/[^0-9.]/);
         operand2 = operands[1];
@@ -79,12 +78,7 @@ function display() {
             operator = buttonText;
             operand1 = output.textContent;
             output.textContent += buttonText;
-            document.getElementById('point').disabled = false;
-            console.log(operator);
-            console.log(operand1);
-            console.log(operand2);
-            console.log(a);
-            console.log(b);       
+            document.getElementById('point').disabled = false;  
         } else {
             operator = buttonText;
             operand1 = output.textContent;
@@ -103,26 +97,16 @@ function display() {
         } else {
             output.textContent += buttonText;
         }
-    } else if (buttonText === '=') {
-        console.log(output.textContent);
-        previous.textContent = output.textContent;
-        const operands = output.textContent.split(/[^0-9.]/);
-        operand2 = operands[1];
-        a = parseFloat(operand1);
-        b = parseFloat(operand2);
-        output.innerText = operate(operator, a, b);
-        console.log(operate(operator, a, b));
-        document.getElementById('point').disabled = false;
     } else {
         output.textContent += buttonText;
         document.getElementById('point').disabled = false;
     }
 
-    // console.log(operator);
-    // console.log(operand1);
-    // console.log(operand2);
-    // console.log(a);
-    // console.log(b);
+    console.log(operator);
+    console.log(operand1);
+    console.log(operand2);
+    console.log(a);
+    console.log(b);
 }
 
 //
