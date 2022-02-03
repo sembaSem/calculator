@@ -97,6 +97,8 @@ function display() {
         } else {
             output.textContent += buttonText;
         }
+    } else if (buttonText === 'DEL') {
+        output.innerText = output.textContent.slice(0, -1);
     } else {
         output.textContent += buttonText;
         document.getElementById('point').disabled = false;
