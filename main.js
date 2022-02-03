@@ -12,7 +12,11 @@ const multiply = function(a, b) {
 };
 
 const divide = function(a, b) {
-    return a / b;
+    if (b === 0) {
+        return 'Can not divide by 0!'
+    } else {
+        return a / b;
+    }
 };
 
 //equals button function
@@ -26,27 +30,28 @@ const operate = function(operator, a, b) {
     } else if (operator == '/') {
         return divide(a, b);
     } else {
-        return 'Please try again.'
+        return 'ERROR'
     }
 };
 
 //display digits on button click
 const output = document.getElementById('output');
-const digits = document.querySelectorAll('.digit');
-const operators = document.querySelectorAll('.operator');
+const previous = document.getElementById('previous');
+//const digits = document.querySelectorAll('.digit');
+const buttons = document.querySelectorAll('button');
 
-digits.forEach(digit => {
-   digit.addEventListener('click', displayDigit);
-});
+// digits.forEach(digit => {
+//    digit.addEventListener('click', displayDigit);
+// });
 
-function displayDigit() {
-    let buttonText = this.innerText;
-    output.textContent += buttonText;
-    console.log(buttonText);
-}
+// function displayDigit() {
+//     let buttonText = this.innerText;
+//     output.textContent += buttonText;
+//     console.log(buttonText);
+// }
 
-operators.forEach(operator => {
-    operator.addEventListener('click', displayOperator);
+buttons.forEach(button => {
+    button.addEventListener('click', display);
 });
 
 let operand1 = '';
@@ -55,23 +60,43 @@ let operand2 = '';
 let a = 0;
 let b = 0;
 
-function displayOperator() {
+function display() {
     let buttonText = this.innerText;
     
     if (buttonText === 'AC') {
         output.innerText = '';
+        previous.innerText = '';
+        document.getElementById('point').disabled = false;
+    } else if (buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
+        operator = buttonText;
+        operand1 = output.textContent;
+        output.textContent += buttonText;
+        document.getElementById('point').disabled = false;
+    } else if (buttonText === '.') {
+        const operands = output.textContent.split(/[^0-9.]/);
+        if (Number.isInteger(parseFloat(operands[0])) === false) {
+            document.getElementById('point').disabled = true;
+            if (Number.isInteger(parseFloat(operands[0])) === false && Number.isInteger(parseFloat(operands[1])) === false) {
+                document.getElementById('point').disabled = true;
+            } else {
+                output.textContent += buttonText;
+            }
+        } else {
+            output.textContent += buttonText;
+        }
     } else if (buttonText === '=') {
         console.log(output.textContent);
-        const operands = output.textContent.split(/\D/);
+        previous.textContent = output.textContent;
+        const operands = output.textContent.split(/[^0-9.]/);
         operand2 = operands[1];
-        a = parseInt(operand1);
-        b = parseInt(operand2);
+        a = parseFloat(operand1);
+        b = parseFloat(operand2);
         output.innerText = operate(operator, a, b);
         console.log(operate(operator, a, b));
+        document.getElementById('point').disabled = false;
     } else {
-        operand1 = output.textContent;
-        operator = buttonText;
         output.textContent += buttonText;
+        document.getElementById('point').disabled = false;
     }
 
     console.log(operator);
