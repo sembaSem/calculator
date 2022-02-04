@@ -64,11 +64,13 @@ function display() {
         a = parseFloat(operand1);
         b = parseFloat(operand2);
         output.innerText = operate(operator, a, b);
+        operator = buttonText;
         console.log(operate(operator, a, b));
         document.getElementById('point').disabled = false;
     } else if (buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
         const operands = output.textContent.split(/[^0-9.]/);
         operand2 = operands[1];
+//        operand1 = output.textContent;
         if (operands[1] !== undefined) {
             previous.textContent = output.textContent;
             a = parseFloat(operand1);
@@ -100,8 +102,16 @@ function display() {
     } else if (buttonText === 'DEL') {
         output.innerText = output.textContent.slice(0, -1);
     } else {
-        output.textContent += buttonText;
-        document.getElementById('point').disabled = false;
+        if (operator === '=') {
+            output.innerText = '';
+            previous.innerText = '';
+            output.textContent += buttonText;
+            operator = '';
+            document.getElementById('point').disabled = false;
+        } else {
+            output.textContent += buttonText;
+            document.getElementById('point').disabled = false;
+        }
     }
 
     console.log(operator);
