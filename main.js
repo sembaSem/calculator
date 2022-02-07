@@ -55,30 +55,35 @@ function display() {
     if (buttonText === 'AC') {
         output.innerText = '';
         previous.innerText = '';
+        operand1 = '';
+        operator = '';
+        operand2 = '';
+        a = 0;
+        b = 0;
         document.getElementById('point').disabled = false;
     } else if (buttonText === '=') {
-        console.log(output.textContent);
         previous.textContent = output.textContent;
         const operands = output.textContent.split(/[^0-9.]/);
+        console.log(operands);
+        operand1 = operands[0];
         operand2 = operands[1];
         a = parseFloat(operand1);
         b = parseFloat(operand2);
         output.innerText = operate(operator, a, b);
         operator = buttonText;
-        console.log(operate(operator, a, b));
         document.getElementById('point').disabled = false;
     } else if (buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
         const operands = output.textContent.split(/[^0-9.]/);
-        operand2 = operands[1];
+        console.log(operands);
 //        operand1 = output.textContent;
         if (operands[1] !== undefined) {
+            operand1 = output.textContent;
+            operand2 = operands[1];
             previous.textContent = output.textContent;
             a = parseFloat(operand1);
             b = parseFloat(operand2);
             output.innerText = operate(operator, a, b);
-            console.log(operate(operator, a, b));
             operator = buttonText;
-            operand1 = output.textContent;
             output.textContent += buttonText;
             document.getElementById('point').disabled = false;  
         } else {
@@ -105,8 +110,8 @@ function display() {
         if (operator === '=') {
             output.innerText = '';
             previous.innerText = '';
-            output.textContent += buttonText;
             operator = '';
+            output.textContent += buttonText;
             document.getElementById('point').disabled = false;
         } else {
             output.textContent += buttonText;
@@ -114,11 +119,12 @@ function display() {
         }
     }
 
-    console.log(operator);
     console.log(operand1);
+    console.log(operator);
     console.log(operand2);
     console.log(a);
     console.log(b);
+    console.log(output.textContent);
+//    console.log(operate(operator, a, b));
+//    console.log(parseFloat(-12));
 }
-
-//
