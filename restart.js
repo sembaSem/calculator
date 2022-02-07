@@ -36,7 +36,7 @@ const operate = function(operator, a, b) {
 
 //display calculation output
 const output = document.getElementById('output');
-//const previous = document.getElementById('previous'); (perhaps 2nd screen was the problem)
+const previous = document.getElementById('previous'); // (perhaps 2nd screen was the problem)
 const buttons = document.querySelectorAll('button');
 
 buttons.forEach(button => {
@@ -57,18 +57,44 @@ function display() {
         a = parseFloat(operand1);
         b = parseFloat(operand2);
         output.innerText = operate(operator, a, b);
+        previous.innerText = operand1 + operator + operand2;
         operator = '=';
     } else if (buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
-        operand1 = output.innerText;
-        operator = buttonText;
-        output.innerText = '';
+        if (operand1 !== '') {
+            if (operator === '=') {
+                operand1 = output.innerText;
+                operator = buttonText;
+                output.innerText = '';
+                previous.innerText = operand1 + buttonText;
+            } else {
+                operand2 = output.innerText;  
+                a = parseFloat(operand1);
+                b = parseFloat(operand2);
+                output.innerText = operate(operator, a, b);
+                operand1 = output.innerText;
+                operator = buttonText;
+                output.innerText = '';
+                previous.innerText = operand1 + buttonText;
+            }
+        } else {
+            operand1 = output.innerText;
+            operator = buttonText;
+            output.innerText = '';
+            previous.innerText = operand1 + buttonText;
+        }
     } else {
         if (operator === '=') {
+            previous.innerText = '';
             output.innerText = '';
+            operand1 = '';
             operator = '';
+            operand2 = '';
             output.textContent += buttonText;
+        // } else if (operator === '+' || operator === '+' || operator === '+' || operator === '+') {
+        //     output.innerText = '';
+        //     output.textContent += buttonText;
         } else {
-        output.textContent += buttonText;
+            output.textContent += buttonText;
         }
     }
     console.log(operand1);
