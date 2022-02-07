@@ -53,12 +53,21 @@ function display() {
     let buttonText = this.innerText;
 
     if (buttonText === '=') {
-        operand2 = output.innerText;
-        a = parseFloat(operand1);
-        b = parseFloat(operand2);
-        output.innerText = operate(operator, a, b);
-        previous.innerText = operand1 + operator + operand2;
-        operator = '=';
+        if (output.innerText === '') {
+            output.textContent = operand1;
+            operand1 = '';
+        } else {
+            if (operator === '' || operator === '=') {
+                output.innerText = output.textContent;
+            } else {
+                operand2 = output.innerText;        
+                a = parseFloat(operand1);
+                b = parseFloat(operand2);
+                output.innerText = operate(operator, a, b);
+                previous.innerText = operand1 + operator + operand2;
+                operator = '=';
+            }
+        }
     } else if (buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
         if (operand1 !== '') {
             if (operator === '=') {
@@ -77,10 +86,14 @@ function display() {
                 previous.innerText = operand1 + buttonText;
             }
         } else {
-            operand1 = output.innerText;
-            operator = buttonText;
-            output.innerText = '';
-            previous.innerText = operand1 + buttonText;
+            if (output.innerText === '') {
+                output.textContent = '';
+            } else {
+                operand1 = output.innerText;
+                operator = buttonText;
+                output.innerText = '';
+                previous.innerText = operand1 + buttonText;
+            }
         }
     } else {
         if (operator === '=') {
@@ -90,9 +103,6 @@ function display() {
             operator = '';
             operand2 = '';
             output.textContent += buttonText;
-        // } else if (operator === '+' || operator === '+' || operator === '+' || operator === '+') {
-        //     output.innerText = '';
-        //     output.textContent += buttonText;
         } else {
             output.textContent += buttonText;
         }
