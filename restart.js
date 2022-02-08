@@ -53,7 +53,43 @@ let b = 0;
 function display() {
     let buttonText = this.innerText;
 
-    if (buttonText === '=') {
+    if (buttonText === 'AC') {
+        document.getElementById('point').disabled = false;
+        output.innerText = '';
+        previous.innerText = '';
+        operand1 = '';
+        operator = '';
+        operand2 = '';
+    } else if (buttonText === 'C') {
+        document.getElementById('point').disabled = false;
+        if (operator === '=') {
+            output.innerText = '';
+            previous.innerText = '';
+            operand1 = '';
+            operator = '';
+            operand2 = ''; 
+        } else {
+            if (parseInt(output.textContent) >= -9 && parseInt(output.textContent) < 0) {
+                output.innerText = '';
+            } else {
+                output.innerText = output.textContent.slice(0, -1);
+            }
+        }
+    } else if (buttonText === '.') {
+        if (Number.isInteger(parseFloat(output.textContent)) === false) {
+            document.getElementById('point').disabled = true;
+        } else {
+            output.textContent += buttonText;
+            document.getElementById('point').disabled = true;
+        }
+    } else if (buttonText === '-/+') {
+        if (output.innerText === '') {
+            output.textContent = '';
+        } else {
+            output.innerText = -1 * parseFloat(output.textContent);
+        }
+    } else if (buttonText === '=') {
+        document.getElementById('point').disabled = false;
         if (output.innerText === '') {
             output.textContent = operand1;
             operand1 = '';
@@ -71,6 +107,7 @@ function display() {
             }
         }
     } else if (buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
+        document.getElementById('point').disabled = false;
         if (operand1 !== '') {
             if (operator === '=') {
                 operand1 = output.innerText;
@@ -109,6 +146,7 @@ function display() {
            }
         }
     } else {
+        document.getElementById('point').disabled = false;
         if (operator === '=') {
             previous.innerText = '';
             output.innerText = '';

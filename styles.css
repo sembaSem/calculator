@@ -54,10 +54,6 @@ button:hover {
     background-color: whitesmoke;
 }
 
-#clear {
-    grid-column: span 2;
-}
-
 #equals {
     grid-column: span 2;
 }
