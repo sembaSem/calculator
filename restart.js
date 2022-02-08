@@ -13,7 +13,7 @@ const multiply = function(a, b) {
 
 const divide = function(a, b) {
     if (b === 0) {
-        return 'Can not divide by 0!'
+        return 'Try again friend'
     } else {
         return (a / b).toFixed(6).replace(/\.?0+$/, '');
     }
@@ -38,6 +38,7 @@ const operate = function(operator, a, b) {
 const output = document.getElementById('output');
 const previous = document.getElementById('previous'); // (perhaps 2nd screen was the problem)
 const buttons = document.querySelectorAll('button');
+const operators = document.getElementsByClassName('operator');
 
 buttons.forEach(button => {
     button.addEventListener('click', display);
@@ -56,11 +57,12 @@ function display() {
         if (output.innerText === '') {
             output.textContent = operand1;
             operand1 = '';
+            operator = '';
         } else {
             if (operator === '' || operator === '=') {
                 output.innerText = output.textContent;
             } else {
-                operand2 = output.innerText;        
+                operand2 = output.innerText;
                 a = parseFloat(operand1);
                 b = parseFloat(operand2);
                 output.innerText = operate(operator, a, b);
@@ -76,24 +78,35 @@ function display() {
                 output.innerText = '';
                 previous.innerText = operand1 + buttonText;
             } else {
-                operand2 = output.innerText;  
-                a = parseFloat(operand1);
-                b = parseFloat(operand2);
-                output.innerText = operate(operator, a, b);
-                operand1 = output.innerText;
-                operator = buttonText;
-                output.innerText = '';
-                previous.innerText = operand1 + buttonText;
+                if (output.textContent === '') {
+                    operand2 = 1;
+                    a = parseFloat(operand1);
+                    b = parseFloat(operand2);
+                    output.innerText = multiply(a, b);
+                    operand1 = output.innerText;
+                    operator = buttonText;
+                    output.innerText = '';
+                    previous.innerText = operand1 + buttonText;
+                } else {
+                    operand2 = output.innerText;  
+                    a = parseFloat(operand1);
+                    b = parseFloat(operand2);
+                    output.innerText = operate(operator, a, b);
+                    operand1 = output.innerText;
+                    operator = buttonText;
+                    output.innerText = '';
+                    previous.innerText = operand1 + buttonText;
+                }
             }
         } else {
-            if (output.innerText === '') {
+           if (output.innerText === '') {
                 output.textContent = '';
-            } else {
+           } else {
                 operand1 = output.innerText;
                 operator = buttonText;
                 output.innerText = '';
                 previous.innerText = operand1 + buttonText;
-            }
+           }
         }
     } else {
         if (operator === '=') {
