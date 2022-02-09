@@ -13,7 +13,7 @@ const multiply = function(a, b) {
 
 const divide = function(a, b) {
     if (b === 0) {
-        return 'Try again friend'
+        return 'Try again friend'  //Snarky message yields NaN if stringing together several operations
     } else {
         return (a / b).toFixed(6).replace(/\.?0+$/, '');
     }
