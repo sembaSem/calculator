@@ -6,7 +6,7 @@
 
 body {
     height: 100vh;
-    background-color: aqua;
+    background: linear-gradient(315deg, blue, aqua);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,6 +17,7 @@ body {
     border: 3px solid black;
     border-radius: 10px;
     overflow: hidden;
+    box-shadow: 10px 10px 5px midnightblue;
 }
 
 #display {
